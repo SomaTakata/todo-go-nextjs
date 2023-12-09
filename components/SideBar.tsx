@@ -4,7 +4,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import Link from "next/link";
 import { SideBarButton } from "./ui/sidebar-bottn";
 import { ModeToggle } from "./ModeToggle";
-import { LogOut } from "lucide-react";
+import { LogOut, CheckCircle2, Star, ClipboardList, Play } from "lucide-react";
 
 function SideBar() {
   return (
@@ -16,21 +16,37 @@ function SideBar() {
             <AvatarFallback>CN</AvatarFallback>
           </Avatar>
 
-          <div className="font-bold text-md">Tom Brown</div>
+          <div className="font-bold text-base">Tom Brown</div>
         </div>
       </div>
       <div className="flex flex-col w-full ">
-        <SideBarButton variant="secondary" asChild>
-          <Link href="">All Tasks</Link>
+        <SideBarButton
+          variant="secondary"
+          className="flex justify-start  px-10"
+        >
+          <ClipboardList className="w-4 h-4 mr-3" />
+
+          <Link href="" className="text-base">
+            全てのタスク
+          </Link>
         </SideBarButton>
-        <SideBarButton variant="ghost" asChild>
-          <Link href="">Important</Link>
+        <SideBarButton variant="ghost" className="flex  justify-start px-10">
+          <Star className="w-4 h-4 mr-3" />
+          <Link href="" className="text-base">
+            重要
+          </Link>
         </SideBarButton>
-        <SideBarButton variant="ghost" asChild>
-          <Link href="">Completed</Link>
+        <SideBarButton variant="ghost" className="flex justify-start px-10">
+          <CheckCircle2 className="w-4 h-4 mr-3" />
+          <Link href="" className="text-base">
+            完了
+          </Link>
         </SideBarButton>
-        <SideBarButton variant="ghost" asChild>
-          <Link href="">Do it Now</Link>
+        <SideBarButton variant="ghost" className="flex justify-start px-10">
+          <Play className="w-4 h-4 mr-3" />
+          <Link href="" className="text-base">
+            今すぐやる
+          </Link>
         </SideBarButton>
       </div>
 
