@@ -25,7 +25,7 @@ export default function Home() {
   async function markTodoAdDone(id: number) {
     const updated = await fetch(`${ENDPOINT}/api/todos/${id}/done`, {
       method: "PATCH",
-    }).then((r) => r.json);
+    }).then((r) => r.json());
 
     mutate(updated);
   }

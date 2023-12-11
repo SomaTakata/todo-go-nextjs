@@ -57,14 +57,14 @@ export function CreateFrom({ mutate }: { mutate: KeyedMutator<Todo[]> }) {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(values),
-    }).then((r) => r.json);
+    }).then((r) => r.json());
 
     mutate(updated);
     form.reset();
   }
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5">
         <FormField
           control={form.control}
           name="title"
@@ -91,9 +91,11 @@ export function CreateFrom({ mutate }: { mutate: KeyedMutator<Todo[]> }) {
             </FormItem>
           )}
         />
-        <DialogFooter className="sm:justify-start">
+        <DialogFooter className="sm:justify-start ">
           <DialogClose asChild>
-            <Button type="submit">Create</Button>
+            <Button type="submit" className="my-3 w-full">
+              Create
+            </Button>
           </DialogClose>
         </DialogFooter>
       </form>
