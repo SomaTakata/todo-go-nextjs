@@ -14,16 +14,20 @@ import { CreateFrom } from "./CreateForm";
 import { KeyedMutator } from "swr";
 import { Todo } from "@/app/page";
 
-export function Modal({
-  mutate,
-  func,
-}: {
-  mutate: KeyedMutator<Todo[]>;
-  func: React.ReactNode;
-}) {
+export function AddTodoCard({ mutate }: { mutate: KeyedMutator<Todo[]> }) {
   return (
     <Dialog>
-      <DialogTrigger asChild>{func}</DialogTrigger>
+      <DialogTrigger asChild>
+        <Card className="w-full h-[150px]">
+          <Button
+            variant="outline"
+            className="w-full h-full text-base flex-col gap-2 text-gray-300"
+          >
+            Todoを追加
+            <PlusCircle />
+          </Button>
+        </Card>
+      </DialogTrigger>
       <DialogContent className="sm:max-w-md rounded-lg">
         <DialogHeader>
           <DialogTitle>Todoを作成</DialogTitle>
