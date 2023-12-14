@@ -26,13 +26,13 @@ function SideBar() {
         >
           <ClipboardList className="w-4 h-4 mr-3" />
 
-          <Link href="" className="text-base">
+          <Link href="/" className="text-base">
             全てのタスク
           </Link>
         </SideBarButton>
         <SideBarButton variant="ghost" className="flex  justify-start px-10">
           <Star className="w-4 h-4 mr-3" />
-          <Link href="" className="text-base">
+          <Link href="/important" className="text-base">
             重要
           </Link>
         </SideBarButton>
@@ -45,7 +45,7 @@ function SideBar() {
         <SideBarButton variant="ghost" className="flex justify-start px-10">
           <Play className="w-4 h-4 mr-3" />
           <Link href="" className="text-base">
-            今すぐやる
+            未完了
           </Link>
         </SideBarButton>
       </div>

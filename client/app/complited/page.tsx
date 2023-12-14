@@ -1,10 +1,9 @@
 "use client";
 import { Modal } from "@/components/Modal";
 import SideBar from "@/components/SideBar";
-import TodoCard from "@/components/TodoCard";
 import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
-import { PlusCircle, Star } from "lucide-react";
+import { PlusCircle } from "lucide-react";
 import { Trash2 } from "lucide-react";
 import useSWR from "swr";
 
@@ -66,7 +65,7 @@ export default function Home() {
           <div className=" w-[90%] flex flex-col mt-5">
             <div className="flex m-2 justify-between">
               <div className="font-bold text-lg border-b-2 border-teal-400">
-                全てのタスク　
+                完了したタスク
               </div>
               <PlusCircle />
             </div>
@@ -92,8 +91,33 @@ export default function Home() {
                 </div>
               </Card>
               {Array.isArray(data) &&
-                data.map((todo: Todo) => {
-                  return <TodoCard todo={todo} key={todo.ID} mutate={mutate} />;
+                data.map((todo) => {
+                  return (
+                    <Card
+                      key={todo.ID}
+                      className="w-full h-[150px] bg-secondary p-4 relative"
+                    >
+                      <div className="font-bold text-[15px]">{todo.title}</div>
+                      <div className=" text-[11px] mt-1">{todo.body}</div>
+                      <div className="absolute bottom-3 w-[90%]">
+                        <div className="flex item-center  justify-between">
+                          <div className="flex   gap-3">
+                            <Badge
+                              variant={todo.done ? "success" : "destructive"}
+                              className="text-[11px] cursor-pointer"
+                              onClick={() => toggleTodoDone(todo.ID)}
+                            >
+                              {todo.done ? "完了" : "未完了"}
+                            </Badge>
+                          </div>
+                          <Trash2
+                            className="w-4 h-4 mr-2 mt-[4px]"
+                            onClick={() => deleteTodo(todo.ID)}
+                          />
+                        </div>
+                      </div>
+                    </Card>
+                  );
                 })}
               <Modal mutate={mutate} />
             </div>
