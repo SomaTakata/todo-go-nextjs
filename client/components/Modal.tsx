@@ -23,17 +23,14 @@ export function Modal({ mutate }: { mutate: KeyedMutator<Todo[]> }) {
             variant="outline"
             className="w-full h-full text-base flex-col gap-2 text-gray-300"
           >
-            Add Todo
+            Todoを追加
             <PlusCircle />
           </Button>
         </Card>
       </DialogTrigger>
       <DialogContent className="sm:max-w-md rounded-lg">
         <DialogHeader>
-          <DialogTitle>Create Todo</DialogTitle>
-          <DialogDescription>
-            Anyone who has this link will be able to view this.
-          </DialogDescription>
+          <DialogTitle>Todoを作成</DialogTitle>
         </DialogHeader>
         <div className="w-full">
           <CreateFrom mutate={mutate} />
