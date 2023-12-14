@@ -16,6 +16,7 @@ export interface Todo {
   body: string;
   title: string;
   done: boolean;
+  important: boolean;
 }
 
 export const ENDPOINT = "http://localhost:8080";

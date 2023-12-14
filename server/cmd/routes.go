@@ -12,5 +12,7 @@ func setupRoutes(app *fiber.App) {
 
 	app.Patch("/api/todos/:id/done", handlers.UpdateDone)
 
+	app.Patch("/api/todos/:id/important", handlers.UpdateImportant)
+
 	app.Delete("/api/todos/:id", handlers.DeleteTodo)
 }
