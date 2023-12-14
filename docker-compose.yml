@@ -1,0 +1,37 @@
+# composeのversionを指定
+version: '3.8'
+
+services:
+  next: 
+    build: ./client
+    image: node:18-alpine
+    env_file:
+      - ./client/.env
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./client:/usr/src/frontend
+    working_dir: /usr/src/frontend
+    command: sh -c "npm i && npm run dev"
+  web:
+    build: ./server
+    env_file:
+      - ./server/.env
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./server:/usr/src/app
+    command: air ./cmd/main.go -b 0.0.0.0
+  db:
+    image: postgres:alpine
+    environment:
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      - POSTGRES_DB=${DB_NAME}
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-db:/var/lib/postgresql/data
+
+volumes:
+  postgres-db:
