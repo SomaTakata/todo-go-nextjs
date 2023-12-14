@@ -36,12 +36,12 @@ function TodoCard(props: TodoCardProps) {
           <div className="flex ">
             <Star
               className={`${
-                todo.important ? "text-yellow-300" : ""
+                todo.important ? "text-yellow-500" : ""
               } w-5 h-5 mr-2 `}
               onClick={() => toggleTodoImportant(todo.ID, mutate)}
             />
             <Trash2
-              className="w-5 h-5 mr-2"
+              className="w-5 h-5 mr-1"
               onClick={() => deleteTodo(todo.ID, mutate)}
             />
           </div>
