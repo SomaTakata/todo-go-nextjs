@@ -9,4 +9,5 @@ func setupRoutes(app *fiber.App) {
 	app.Get("/", handlers.ListTodos)
 
 	app.Post("/todo", handlers.CreateTodo)
+	app.Delete("/todo/:id", handlers.DeleteTodo)
 }

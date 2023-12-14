@@ -26,3 +26,17 @@ func CreateTodo(c *fiber.Ctx) error {
 
 	return c.Status(200).JSON(todo)
 }
+
+func DeleteTodo(c *fiber.Ctx) error {
+	id := c.Params("id")
+	var todo models.Todo
+
+	result := database.DB.Db.Delete(&todo, id)
+
+	if result.RowsAffected == 0 {
+		return c.Status(fiber.StatusNotFound).JSON(fiber.Map{"status": "fail", "message": "No note with that Id exists"})
+	} else if result.Error != nil {
+		return c.Status(fiber.StatusBadGateway).JSON(fiber.Map{"status": "error", "message": result.Error})
+	}
+	return c.SendStatus(fiber.StatusNoContent)
+}
