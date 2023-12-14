@@ -8,9 +8,12 @@ import { Trash2 } from "lucide-react";
 import useSWR from "swr";
 
 export interface Todo {
-  id: number;
-  title: string;
+  CreatedAt: string;
+  DeletedAt: string | null;
+  ID: number;
+  UpdatedAt: string;
   body: string;
+  title: string;
   done: boolean;
 }
 
@@ -21,13 +24,23 @@ const fetcher = (url: string) =>
 
 export default function Home() {
   const { data, mutate } = useSWR<Todo[]>("api/todos", fetcher);
+  console.log(data);
 
-  async function markTodoAdDone(id: number) {
-    const updated = await fetch(`${ENDPOINT}/api/todos/${id}/done`, {
-      method: "PATCH",
-    }).then((r) => r.json());
-
-    mutate(updated);
+  async function deleteTodo(id: number) {
+    try {
+      const response = await fetch(`${ENDPOINT}/api/todos/${id}`, {
+        method: "DELETE",
+      });
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+      // Assuming you want to re-fetch the todo list after deletion
+      mutate(); // Or use a specific key if needed
+    } catch (error) {
+      console.error("Error deleting todo:", error);
+      // Handle the error appropriately
+    }
+    // console.log(id);
   }
 
   return (
@@ -63,31 +76,34 @@ export default function Home() {
                   </div>
                 </div>
               </Card>
-              {data?.map((todo) => {
-                return (
-                  <Card
-                    key={todo.id}
-                    className="w-full h-[150px] bg-secondary p-4 relative"
-                  >
-                    <div className="font-bold text-[15px]">{todo.title}</div>
-                    <div className=" text-[11px] mt-1">{todo.body}</div>
-                    <div className="absolute bottom-3 w-[90%]">
-                      <div className="flex item-center  justify-between">
-                        <div className="flex   gap-3">
-                          <Badge
-                            variant={todo.done ? "success" : "destructive"}
-                            className="text-[11px]"
-                            onClick={() => markTodoAdDone(todo.id)}
-                          >
-                            {todo.done ? "完了" : "未完了"}
-                          </Badge>
+              {Array.isArray(data) &&
+                data.map((todo) => {
+                  return (
+                    <Card
+                      key={todo.ID}
+                      className="w-full h-[150px] bg-secondary p-4 relative"
+                    >
+                      <div className="font-bold text-[15px]">{todo.title}</div>
+                      <div className=" text-[11px] mt-1">{todo.body}</div>
+                      <div className="absolute bottom-3 w-[90%]">
+                        <div className="flex item-center  justify-between">
+                          <div className="flex   gap-3">
+                            <Badge
+                              variant={todo.done ? "success" : "destructive"}
+                              className="text-[11px]"
+                            >
+                              {todo.done ? "完了" : "未完了"}
+                            </Badge>
+                          </div>
+                          <Trash2
+                            className="w-4 h-4 mr-2 mt-[4px]"
+                            onClick={() => deleteTodo(todo.ID)}
+                          />
                         </div>
-                        <Trash2 className="w-4 h-4 mr-2 mt-[4px]" />
                       </div>
-                    </div>
-                  </Card>
-                );
-              })}
+                    </Card>
+                  );
+                })}
               <Modal mutate={mutate} />
             </div>
           </div>

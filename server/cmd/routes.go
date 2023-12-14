@@ -6,8 +6,8 @@ import (
 )
 
 func setupRoutes(app *fiber.App) {
-	app.Get("/", handlers.ListTodos)
+	app.Get("/api/todos", handlers.ListTodos)
 
-	app.Post("/todo", handlers.CreateTodo)
-	app.Delete("/todo/:id", handlers.DeleteTodo)
+	app.Post("/api/todos", handlers.CreateTodo)
+	app.Delete("/api/todos/:id", handlers.DeleteTodo)
 }
