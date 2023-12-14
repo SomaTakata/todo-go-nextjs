@@ -1,11 +1,10 @@
 "use client";
+import { AddTodoCard } from "@/components/AddTodoCard";
 import { Modal } from "@/components/Modal";
 import SideBar from "@/components/SideBar";
 import TodoCard from "@/components/TodoCard";
-import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
 import { PlusCircle, Star } from "lucide-react";
-import { Trash2 } from "lucide-react";
 import useSWR from "swr";
 
 export interface Todo {
@@ -38,7 +37,7 @@ export default function Home() {
               <div className="font-bold text-lg border-b-2 border-teal-400">
                 全てのタスク　
               </div>
-              <PlusCircle />
+              <Modal func={<PlusCircle />} mutate={mutate} />
             </div>
 
             <div className="mt-4 gap-3 grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
@@ -46,7 +45,7 @@ export default function Home() {
                 data.map((todo: Todo) => {
                   return <TodoCard todo={todo} key={todo.ID} mutate={mutate} />;
                 })}
-              <Modal mutate={mutate} />
+              <AddTodoCard mutate={mutate} />
             </div>
           </div>
         </Card>
