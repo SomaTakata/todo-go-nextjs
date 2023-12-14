@@ -20,37 +20,45 @@ function SideBar() {
         </div>
       </div>
       <div className="flex flex-col w-full ">
-        <SideBarButton
-          variant="secondary"
-          className="flex justify-start  px-10"
-        >
-          <ClipboardList className="w-4 h-4 mr-3" />
-
-          <Link href="" className="text-base">
+        <Link href="/" className="text-base">
+          <SideBarButton
+            variant="secondary"
+            className="flex justify-start w-full px-10"
+          >
+            <ClipboardList className="w-4 h-4 mr-3" />
             全てのタスク
-          </Link>
-        </SideBarButton>
-        <SideBarButton variant="ghost" className="flex  justify-start px-10">
-          <Star className="w-4 h-4 mr-3" />
-          <Link href="" className="text-base">
+          </SideBarButton>
+        </Link>
+        <Link href="/important" className="text-base">
+          <SideBarButton
+            variant="ghost"
+            className="flex w-full justify-start px-10"
+          >
+            <Star className="w-4 h-4 mr-3" />
             重要
-          </Link>
-        </SideBarButton>
-        <SideBarButton variant="ghost" className="flex justify-start px-10">
-          <CheckCircle2 className="w-4 h-4 mr-3" />
-          <Link href="" className="text-base">
+          </SideBarButton>
+        </Link>
+        <Link href="/completed" className="text-base">
+          <SideBarButton
+            variant="ghost"
+            className="flex w-full justify-start px-10"
+          >
+            <CheckCircle2 className="w-4 h-4 mr-3" />
             完了
-          </Link>
-        </SideBarButton>
-        <SideBarButton variant="ghost" className="flex justify-start px-10">
-          <Play className="w-4 h-4 mr-3" />
-          <Link href="" className="text-base">
-            今すぐやる
-          </Link>
-        </SideBarButton>
+          </SideBarButton>
+        </Link>
+        <Link href="/uncompleted" className="text-base">
+          <SideBarButton
+            variant="ghost"
+            className="flex w-full justify-start px-10"
+          >
+            <Play className="w-4 h-4 mr-3" />
+            未完了
+          </SideBarButton>
+        </Link>
       </div>
 
-      <div className="absolute w-[90%] bottom-4  flex  justify-between px-3">
+      <div className="absolute w-[90%] bottom-4  flex w-full  justify-between px-3">
         <div className="flex items-center   gap-1">
           <LogOut className="w-5 h-5" />
           <div className=" font-bold text-sm">Sign Out</div>
