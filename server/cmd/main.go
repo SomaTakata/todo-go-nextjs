@@ -1,6 +1,7 @@
 package main
 
 import (
+	"github.com/SomaTakata/task-brancher/database"
 	"github.com/gofiber/fiber/v2"
 )
 
@@ -12,11 +13,11 @@ type Todo struct {
 }
 
 func main() {
+	database.ConnectDb()
 	app := fiber.New()
 
-	app.Get("/", func(c *fiber.Ctx) error {
-		return c.SendString("Hello Soma !!!!!")
-	})
+	setupRoutes(app)
+
 	app.Listen(":3000")
 	// fmt.Print("Hello world")
 
