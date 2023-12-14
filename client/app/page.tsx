@@ -28,37 +28,6 @@ export default function Home() {
   const { data, mutate } = useSWR<Todo[]>("api/todos", fetcher);
   console.log(data);
 
-  async function deleteTodo(id: number) {
-    try {
-      const response = await fetch(`${ENDPOINT}/api/todos/${id}`, {
-        method: "DELETE",
-      });
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
-      }
-
-      mutate();
-    } catch (error) {
-      console.error("Error deleting todo:", error);
-    }
-  }
-
-  async function toggleTodoDone(id: number) {
-    try {
-      const response = await fetch(`${ENDPOINT}/api/todos/${id}/done`, {
-        method: "PATCH",
-      });
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
-      }
-
-      // Todoリストの状態を再フェッチして更新
-      mutate();
-    } catch (error) {
-      console.error("Error toggling todo done status:", error);
-    }
-  }
-
   return (
     <main className="flex h-screen w-fll items-center justify-center ">
       <div className="flex h-screen w-full items-center justify-center gap-4">
@@ -73,25 +42,6 @@ export default function Home() {
             </div>
 
             <div className="mt-4 gap-3 grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-              <Card className="w-full h-[150px] bg-secondary p-4 relative">
-                <div className="font-bold text-[15px]">
-                  フォームの実装をしたい
-                </div>
-                <div className=" text-[11px] mt-1">
-                  TODOアプリを作るうえでフォームを実装したいと思ったから。
-                </div>
-
-                <div className="absolute bottom-3 w-[90%]">
-                  <div className="flex item-center  justify-between">
-                    <div className="flex   gap-3">
-                      <Badge variant="destructive" className="text-[11px]">
-                        未完了
-                      </Badge>
-                    </div>
-                    <Trash2 className="w-4 h-4 mr-2 mt-[4px]" />
-                  </div>
-                </div>
-              </Card>
               {Array.isArray(data) &&
                 data.map((todo: Todo) => {
                   return <TodoCard todo={todo} key={todo.ID} mutate={mutate} />;

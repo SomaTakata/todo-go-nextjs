@@ -14,10 +14,10 @@ const fetcher = (url: string) =>
   fetch(`${ENDPOINT}/${url}`).then((r) => r.json());
 
 export default function Home() {
-  const { data, mutate } = useSWR<Todo[]>("api/todos", fetcher);
-  console.log(data);
   const params = useParams();
   const genre = params.genre;
+  const { data, mutate } = useSWR<Todo[]>(`api/todos/${genre}`, fetcher);
+  console.log(data);
 
   const getTitle = () => {
     switch (genre) {

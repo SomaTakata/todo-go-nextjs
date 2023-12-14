@@ -94,3 +94,38 @@ func UpdateImportant(c *fiber.Ctx) error {
 
 	return c.JSON(todo)
 }
+
+func ListCompletedTodos(c *fiber.Ctx) error {
+	var todos []models.Todo
+	result := database.DB.Db.Where("done = ?", true).Find(&todos)
+	if result.Error != nil {
+		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
+			"error": result.Error.Error(),
+		})
+	}
+
+	return c.Status(fiber.StatusOK).JSON(todos)
+}
+func ListUnCompletedTodos(c *fiber.Ctx) error {
+	var todos []models.Todo
+	result := database.DB.Db.Where("done = ?", false).Find(&todos)
+	if result.Error != nil {
+		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
+			"error": result.Error.Error(),
+		})
+	}
+
+	return c.Status(fiber.StatusOK).JSON(todos)
+}
+
+func ListImportantTodos(c *fiber.Ctx) error {
+	var todos []models.Todo
+	result := database.DB.Db.Where("important = ?", true).Find(&todos)
+	if result.Error != nil {
+		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
+			"error": result.Error.Error(),
+		})
+	}
+
+	return c.Status(fiber.StatusOK).JSON(todos)
+}
