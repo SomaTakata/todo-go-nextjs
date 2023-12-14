@@ -75,3 +75,22 @@ func UpdateDone(c *fiber.Ctx) error {
 
 	return c.JSON(todo)
 }
+
+// UpdateImportant は指定されたIDのTodoアイテムのImportantステータスを切り替えます。
+func UpdateImportant(c *fiber.Ctx) error {
+	id, err := c.ParamsInt("id")
+	if err != nil {
+		return c.Status(fiber.StatusBadRequest).SendString("Invalid id")
+	}
+
+	var todo models.Todo
+	result := database.DB.Db.First(&todo, id)
+	if result.Error != nil {
+		return c.Status(fiber.StatusNotFound).SendString("Todo not found")
+	}
+
+	todo.Important = !todo.Important
+	database.DB.Db.Save(&todo)
+
+	return c.JSON(todo)
+}

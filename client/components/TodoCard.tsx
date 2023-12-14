@@ -6,6 +6,7 @@ import { toggleTodoDone } from "./function/toggleTodoDone";
 import { deleteTodo } from "./function/deleteTodo";
 import { KeyedMutator } from "swr";
 import { Badge } from "./ui/badge";
+import { toggleTodoImportant } from "./function/toggleTodoImportant";
 
 // propsの型を定義
 interface TodoCardProps {
@@ -33,7 +34,12 @@ function TodoCard(props: TodoCardProps) {
             </Badge>
           </div>
           <div className="flex ">
-            <Star className="w-5 h-5 mr-2 " />
+            <Star
+              className={`${
+                todo.important ? "text-yellow-300" : ""
+              } w-5 h-5 mr-2 `}
+              onClick={() => toggleTodoImportant(todo.ID, mutate)}
+            />
             <Trash2
               className="w-5 h-5 mr-2"
               onClick={() => deleteTodo(todo.ID, mutate)}
