@@ -30,7 +30,7 @@ export default function Home() {
   return (
     <main className="flex h-screen w-fll items-center justify-center ">
       <div className="flex h-screen w-full items-center justify-center gap-4">
-        <SideBar />
+        <SideBar genre={""} />
         <Card className="w-[65%] h-[90%] shadow-lg relative flex justify-center">
           <div className=" w-[90%] flex flex-col mt-5">
             <div className="flex m-2 justify-between">
