@@ -4,6 +4,7 @@ import (
 	"github.com/SomaTakata/task-brancher/database"
 	"github.com/SomaTakata/task-brancher/models"
 	"github.com/gofiber/fiber/v2"
+	"github.com/google/uuid"
 )
 
 // ListTodos はデータベースから全てのTodoアイテムを取得し、返します。
@@ -35,7 +36,8 @@ func CreateTodo(c *fiber.Ctx) error {
 
 // DeleteTodo は指定されたIDのTodoアイテムをデータベースから削除します。
 func DeleteTodo(c *fiber.Ctx) error {
-	id, err := c.ParamsInt("id")
+	idParam := c.Params("id")
+	id, err := uuid.Parse(idParam)
 	if err != nil {
 		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
 			"error": "Invalid ID",
@@ -59,7 +61,8 @@ func DeleteTodo(c *fiber.Ctx) error {
 
 // UpdateDone は指定されたIDのTodoアイテムのDoneステータスを切り替えます。
 func UpdateDone(c *fiber.Ctx) error {
-	id, err := c.ParamsInt("id")
+	idParam := c.Params("id")
+	id, err := uuid.Parse(idParam)
 	if err != nil {
 		return c.Status(fiber.StatusBadRequest).SendString("Invalid id")
 	}
@@ -78,7 +81,8 @@ func UpdateDone(c *fiber.Ctx) error {
 
 // UpdateImportant は指定されたIDのTodoアイテムのImportantステータスを切り替えます。
 func UpdateImportant(c *fiber.Ctx) error {
-	id, err := c.ParamsInt("id")
+	idParam := c.Params("id")
+	id, err := uuid.Parse(idParam)
 	if err != nil {
 		return c.Status(fiber.StatusBadRequest).SendString("Invalid id")
 	}
