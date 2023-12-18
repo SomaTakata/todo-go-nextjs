@@ -99,6 +99,7 @@ func UpdateImportant(c *fiber.Ctx) error {
 	return c.JSON(todo)
 }
 
+// ListCompletedTodos は「完了した」Todoアイテムのリストを返します。
 func ListCompletedTodos(c *fiber.Ctx) error {
 	var todos []models.Todo
 	result := database.DB.Db.Where("done = ?", true).Find(&todos)
@@ -110,6 +111,8 @@ func ListCompletedTodos(c *fiber.Ctx) error {
 
 	return c.Status(fiber.StatusOK).JSON(todos)
 }
+
+// ListUnCompletedTodos は「未完了の」Todoアイテムのリストを返します。
 func ListUnCompletedTodos(c *fiber.Ctx) error {
 	var todos []models.Todo
 	result := database.DB.Db.Where("done = ?", false).Find(&todos)
@@ -122,6 +125,7 @@ func ListUnCompletedTodos(c *fiber.Ctx) error {
 	return c.Status(fiber.StatusOK).JSON(todos)
 }
 
+// ListImportantTodos は「重要な」Todoアイテムのリストを返します。
 func ListImportantTodos(c *fiber.Ctx) error {
 	var todos []models.Todo
 	result := database.DB.Db.Where("important = ?", true).Find(&todos)
