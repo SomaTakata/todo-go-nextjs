@@ -18,8 +18,6 @@ import { DialogClose, DialogFooter } from "./ui/dialog";
 import { ENDPOINT, Todo } from "@/app/page";
 
 import { KeyedMutator } from "swr";
-import { title } from "process";
-import { create } from "domain";
 
 const formSchema = z.object({
   title: z.string().min(2, {
@@ -31,7 +29,6 @@ const formSchema = z.object({
 });
 
 export function CreateFrom({ mutate }: { mutate: KeyedMutator<Todo[]> }) {
-  // 1. Define your form.
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -40,12 +37,7 @@ export function CreateFrom({ mutate }: { mutate: KeyedMutator<Todo[]> }) {
     },
   });
 
-  // 2. Define a submit handler.
   function onSubmit(values: z.infer<typeof formSchema>) {
-    // Do something with the form values.
-
-    // ✅ This will be type-safe and validated.
-
     createTodo(values);
     console.log(values);
   }
