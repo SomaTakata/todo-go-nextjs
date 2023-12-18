@@ -1,7 +1,7 @@
 import { ENDPOINT, Todo } from "@/app/page";
 import { KeyedMutator } from "swr";
 
-export async function toggleTodoDone(id: number,mutate:KeyedMutator<Todo[]>) {
+export async function toggleTodoDone(id: string,mutate:KeyedMutator<Todo[]>) {
     try {
       const response = await fetch(`${ENDPOINT}/api/todos/${id}/done`, {
         method: "PATCH",

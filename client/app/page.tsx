@@ -10,7 +10,7 @@ import useSWR from "swr";
 export interface Todo {
   CreatedAt: string;
   DeletedAt: string | null;
-  ID: number;
+  ID: string;
   UpdatedAt: string;
   body: string;
   title: string;
