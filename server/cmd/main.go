@@ -8,14 +8,6 @@ import (
 	"github.com/gofiber/fiber/v2/middleware/cors"
 )
 
-type Todo struct {
-	ID        int    `json:"id"`
-	Title     string `json:"title"`
-	Done      bool   `json:"done"`
-	Body      string `json:"body"`
-	Important bool   `json:"important"`
-}
-
 func main() {
 	database.ConnectDb()
 	app := fiber.New()
