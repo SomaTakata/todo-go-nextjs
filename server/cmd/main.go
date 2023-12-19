@@ -16,7 +16,6 @@ func main() {
 	app := fiber.New()
 
 	// CORSミドルウェアを設定
-	// これにより、localhost:3000 からのリクエストを受け入れることができる
 	app.Use(cors.New(cors.Config{
 		AllowOrigins: "http://localhost:3000",
 		AllowHeaders: "Origin, Content-Type, Accept",
@@ -24,6 +23,11 @@ func main() {
 
 	// ルーティングの設定（setupRoutes関数はおそらく他の場所で定義されている）
 	setupRoutes(app)
+
+	// 新しいルートを追加：'/' で 'Hello World' を表示
+	app.Get("/", func(c *fiber.Ctx) error {
+		return c.SendString("Hello World")
+	})
 
 	// サーバーをポート8080で起動し、エラーが発生した場合はログに記録
 	log.Fatal(app.Listen(":8080"))
