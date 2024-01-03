@@ -1,0 +1,11 @@
+
+
+# local env files
+.env*.local
+
+
+# env files
+.env
+
+
+
