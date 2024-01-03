@@ -6,21 +6,26 @@ import { SideBarButton } from "./ui/sidebar-bottn";
 import { ModeToggle } from "./ModeToggle";
 import { LogOut, CheckCircle2, Star, ClipboardList, Play } from "lucide-react";
 import { useParams } from "next/navigation";
+import {
+  SignInWithMetamaskButton,
+  SignOutButton,
+  UserButton,
+  useUser,
+} from "@clerk/nextjs";
 
 function SideBar({ genre }: { genre: string }) {
   console.log(genre);
   const getVariant = (buttonGenre: string) =>
     genre === buttonGenre ? "secondary" : "ghost";
+
+  const { user } = useUser();
   return (
     <Card className="w-[200px] h-[90%]  shadow-lg relative flex items-center justify-center">
       <div className="absolute w-[90%] top-5  flex  justify-center">
         <div className="flex w-[90%] items-center  justify-between px-2">
-          <Avatar>
-            <AvatarImage src="https://github.com/shadcn.png" alt="icon" />
-            <AvatarFallback>CN</AvatarFallback>
-          </Avatar>
+          <UserButton afterSignOutUrl="/" />
 
-          <div className="font-bold text-base">Tom Brown</div>
+          <div className=" font-bold text-base">{user?.username}</div>
         </div>
       </div>
       <div className="flex flex-col w-full ">
@@ -63,9 +68,11 @@ function SideBar({ genre }: { genre: string }) {
       </div>
 
       <div className="absolute bottom-4  flex w-full  justify-between px-3">
-        <div className="flex items-center   gap-1">
+        <div className="flex items-center pl-2   gap-1">
           <LogOut className="w-5 h-5" />
-          <div className=" font-bold text-sm">Sign Out</div>
+          <div className=" font-bold text-sm">
+            <SignOutButton />
+          </div>
         </div>
         <ModeToggle />
       </div>

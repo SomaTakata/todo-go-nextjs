@@ -62,9 +62,9 @@ export function CreateFrom({ mutate }: { mutate: KeyedMutator<Todo[]> }) {
           name="title"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Todo</FormLabel>
+              <FormLabel>タイトル</FormLabel>
               <FormControl>
-                <Input placeholder="what do you want to do ?" {...field} />
+                <Input placeholder="基本情報の問題を20個解く" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -75,9 +75,12 @@ export function CreateFrom({ mutate }: { mutate: KeyedMutator<Todo[]> }) {
           name="body"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Body</FormLabel>
+              <FormLabel>内容</FormLabel>
               <FormControl>
-                <Input placeholder="Tell me more ..." {...field} />
+                <Input
+                  placeholder="基本情報を受けるうえで、合計800問を解く上の20問"
+                  {...field}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -86,7 +89,7 @@ export function CreateFrom({ mutate }: { mutate: KeyedMutator<Todo[]> }) {
         <DialogFooter className="sm:justify-start ">
           <DialogClose asChild>
             <Button type="submit" className="my-3 w-full">
-              Create
+              追加
             </Button>
           </DialogClose>
         </DialogFooter>
