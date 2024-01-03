@@ -1,1 +1,15 @@
+<<<<<<< HEAD
+
+
+# local env files
+.env*.local
+
+
+# env files
 .env
+
+
+
+=======
+.env
+>>>>>>> origin/main
