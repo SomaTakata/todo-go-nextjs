@@ -28,6 +28,8 @@ type Todo struct {
 
 	// Important はToDoアイテムが重要かどうかを示します。
 	Important bool `json:"important" gorm:"not null;default:false"`
+
+	UserID string `json:"userId" gorm:"type:text;not null"`
 }
 
 // BeforeCreate はGORMのフックで、新しい Todo レコードがデータベースに保存される前に呼び出されます。

@@ -22,6 +22,9 @@ func setupRoutes(app *fiber.App) {
 	// 新しいToDoアイテムを作成
 	app.Post("/api/todos", handlers.CreateTodo)
 
+	// userIDの追加
+	app.Post("/api/save-user-id", handlers.SaveUserId)
+
 	// 指定されたIDのToDoアイテムの完了状態を更新
 	app.Patch("/api/todos/:id/done", handlers.UpdateDone)
 

@@ -4,6 +4,7 @@ import { Modal } from "@/components/Modal";
 import SideBar from "@/components/SideBar";
 import TodoCard from "@/components/TodoCard";
 import { Card } from "@/components/ui/card";
+import { useUser } from "@clerk/nextjs";
 import { PlusCircle, Star } from "lucide-react";
 import useSWR from "swr";
 
@@ -20,11 +21,17 @@ export interface Todo {
 
 export const ENDPOINT = "http://localhost:8080";
 
-const fetcher = (url: string) =>
-  fetch(`${ENDPOINT}/${url}`).then((r) => r.json());
+const fetcher = (url: string) => fetch(url).then((r) => r.json());
 
 export default function Home() {
-  const { data, mutate } = useSWR<Todo[]>("api/todos", fetcher);
+  const { user } = useUser();
+  const userId = user?.id;
+
+  const fetcher = (url: string) => fetch(url).then((r) => r.json());
+  const { data, mutate } = useSWR<Todo[]>(
+    userId ? `${ENDPOINT}/api/todos?userId=${userId}` : null,
+    fetcher
+  );
   console.log(data);
 
   return (

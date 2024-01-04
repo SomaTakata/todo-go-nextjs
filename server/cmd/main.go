@@ -11,6 +11,7 @@ import (
 func main() {
 	// データベースへの接続を初期化
 	database.ConnectDb()
+	defer database.DB.Close()
 
 	// 新しいFiberアプリケーションのインスタンスを作成
 	app := fiber.New()

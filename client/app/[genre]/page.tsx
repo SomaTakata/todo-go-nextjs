@@ -8,16 +8,20 @@ import { useParams } from "next/navigation";
 import useSWR from "swr";
 import { Todo } from "../page";
 import { AddTodoCard } from "@/components/AddTodoCard";
+import { useUser } from "@clerk/nextjs";
 
 export const ENDPOINT = "http://localhost:8080";
 
-const fetcher = (url: string) =>
-  fetch(`${ENDPOINT}/${url}`).then((r) => r.json());
-
 export default function Home() {
+  const { user } = useUser();
+  const userId = user?.id;
   const params = useParams();
-  const genre = params.genre;
-  const { data, mutate } = useSWR<Todo[]>(`api/todos/${genre}`, fetcher);
+  const genre = Array.isArray(params.genre) ? params.genre[0] : params.genre;
+  const fetcher = (url: string) => fetch(url).then((r) => r.json());
+  const { data, mutate } = useSWR<Todo[]>(
+    userId ? `${ENDPOINT}/api/todos/${genre}?userId=${userId}` : null,
+    fetcher
+  );
   console.log(data);
 
   const getTitle = () => {

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Card } from "./ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import Link from "next/link";
@@ -12,6 +12,7 @@ import {
   UserButton,
   useUser,
 } from "@clerk/nextjs";
+import { sendUserIdToBackend } from "./function/sendUserIdToBackend";
 
 function SideBar({ genre }: { genre: string }) {
   console.log(genre);
@@ -19,13 +20,17 @@ function SideBar({ genre }: { genre: string }) {
     genre === buttonGenre ? "secondary" : "ghost";
 
   const { user } = useUser();
+  const userId = user?.id;
+  const username = user?.username;
+  // この関数をコンポーネントで呼び出してユーザーIDを送信する
+  sendUserIdToBackend(userId, username);
   return (
     <Card className="w-[200px] h-[90%]  shadow-lg relative flex items-center justify-center">
       <div className="absolute w-[90%] top-5  flex  justify-center">
         <div className="flex w-[90%] items-center  justify-between px-2">
           <UserButton afterSignOutUrl="/" />
 
-          <div className=" font-bold text-base">{user?.username}</div>
+          <div className=" font-bold text-base">{username}</div>
         </div>
       </div>
       <div className="flex flex-col w-full ">
