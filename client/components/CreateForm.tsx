@@ -18,6 +18,7 @@ import { DialogClose, DialogFooter } from "./ui/dialog";
 import { ENDPOINT, Todo } from "@/app/page";
 
 import { KeyedMutator } from "swr";
+import { useUser } from "@clerk/nextjs";
 
 const formSchema = z.object({
   title: z.string().min(2, {
@@ -26,14 +27,21 @@ const formSchema = z.object({
   body: z.string().min(2, {
     message: "Body must be at least 2 characters.",
   }),
+  userID: z.string().min(2, {
+    message: "Body must be at least 2 characters.",
+  }),
 });
 
 export function CreateFrom({ mutate }: { mutate: KeyedMutator<Todo[]> }) {
+  const { user } = useUser();
+  const userId = user?.id;
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       title: "",
       body: "",
+      userID: userId,
     },
   });
 
@@ -42,7 +50,11 @@ export function CreateFrom({ mutate }: { mutate: KeyedMutator<Todo[]> }) {
     console.log(values);
   }
 
-  async function createTodo(values: { title: string; body: string }) {
+  async function createTodo(values: {
+    title: string;
+    body: string;
+    userID: string;
+  }) {
     const updated = await fetch(`${ENDPOINT}/api/todos`, {
       method: "POST",
       headers: {
